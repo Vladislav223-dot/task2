@@ -1,0 +1,427 @@
+@orange-color: rgb(253, 171,0);
+@orange-lite-color: rgb(235, 164, 11);
+@purple-color: rgb(84,1,155);
+@purple-light-color: rgb(212, 170, 250);
+@purple-dark-color: rgb(68, 2, 127);
+@purple-darker-color: rgb(42, 2, 77);
+@gray-color: rgb(178, 185, 188);
+@gray-lite-color: rgb(245, 239, 239);
+@gray-darker-color: rgb(93, 93, 93);
+@blue-color: rgb(213, 224, 228);
+@blue-lite-color: rgb(188, 197, 200);
+@black-color:  rgb(0, 0, 0);
+@white-color:  rgb(255, 255, 255);
+
+@before-width: 140px;
+@before-height: 140px;
+
+.tooltip {
+  z-index: 2;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  display: none;
+  width: 75px;
+  padding: 21px 18px 23px 22px;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: start;
+  color: @purple-color;
+  background-color: @gray-lite-color;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.3);
+          box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.3);
+
+  &::before {
+    color: blue;
+    position: absolute;
+    top: -19px;
+    left: 52%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    border: solid 11px transparent;
+    border-bottom: 10px solid @gray-lite-color;
+  }
+}
+
+.list-counter {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 5px;
+
+  &__link {
+    background-color: @purple-color;
+    border-radius: 5px;
+    text-decoration: none;
+    color: @white-color;
+    padding: 20px 10px 20px 20px;
+    position: relative;
+    width: 250px;
+    flex-grow: 1;
+
+    &:hover {
+      background-color: @purple-dark-color;
+    }
+
+    &:active {
+      background-color: @purple-darker-color;
+    }
+
+    &__icon::before {
+      width: @before-width;
+      height: @before-height;
+      display: block;
+      position: absolute;
+      right: -75px;
+      top: 25px;
+    }
+
+    &__icon--rating::before {
+      content: url("../images/icons/star.svg");
+    }
+    
+    &__icon--reviews::before {
+      content: url("../../images/icons/dialog.svg");
+    }
+    
+    &__icon--replies::before {
+      content: url("../images/icons/important.svg");
+    }
+    
+    &__icon--updates::before {
+      content: url("../../images/icons/update.svg");
+    }
+  }
+
+  &__item-number,
+  &__item-description {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item-number {
+    font-size: 27px;
+  }
+
+  &__item-description {
+    font-size: 15px;
+  }
+}
+
+.list-parameter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  cursor: pointer;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  &__item {
+    border: 1px solid @blue-color;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+
+    @media screen and (max-width: 767px) {
+      width: 220px;
+    }
+
+    &:hover {
+      background-color: @purple-light-color;
+    }
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &::before {
+      content: "✓";
+      margin-right: 5px;
+    }
+
+    &--complited {
+      background-color: @purple-color;
+      color: @white-color;
+
+      &:hover {
+        background-color: @purple-dark-color;
+      }
+    }
+
+    &--loading {
+      
+      &::before {
+        content: "↻";
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.page {
+  margin: 0;
+  padding: 0;
+
+  &__body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+.programm__list,
+.advantages__list {
+  list-style-type: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.list-company {
+  &__tooltip {
+    position: absolute;
+    z-index: 10;
+    top: 100%; // Позиционируем тултип под кнопкой
+    left: -30%; // Центрируем тултип по горизонтали
+    transform: translateX(-50%); // Смещаем тултип на половину его ширины влево, чтобы он был выровнен по центру кнопки
+    padding: 15px;
+    background-color: @white-color;
+    color: @purple-color;
+    border-radius: 3px;
+    white-space: nowrap; // Предотвращаем перенос текста на новую строку
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid @gray-color;
+    transition: opacity 0.3s, visibility 0.3s; // Добавляем плавное появление и исчезновение
+  
+    .list-company__toggle:hover & {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &__toggle {
+    z-index: 2;
+    width: 3px;
+    height: 3px;
+    position: relative;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+    grid-column: 2;
+    padding: 11px;
+    &::before {
+      content: "";
+      display: block;
+      width: 3px;
+      height: 3px;
+      position: absolute;
+      top: 0;
+      background-color: @gray-darker-color;
+      box-shadow: 0 6px 0 0 @gray-darker-color, 0 12px 0 0 @gray-darker-color;
+      border-radius: 50%;
+    }
+
+    &:hover::before {
+      background-color: @black-color;
+      box-shadow: 0 6px 0 0 @black-color, 0 12px 0 0 @black-color;
+    }
+
+    &:focus .tooltip,
+    &:hover .tooltip {
+      display: block;
+    }
+  }
+
+  &__item {
+    width: 100%;
+    padding: 20px 10px 10px 20px;
+    border-radius: 5px;
+    border: 2px solid @blue-color;
+    box-sizing: border-box;
+
+    &:hover {
+      border: 2px solid @blue-lite-color;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    &--active {
+      border-left: 5px solid @purple-color;
+
+      &:hover {
+        border-left: 5px solid @purple-dark-color;
+      }
+    }
+
+    &--off {
+      border-left: 5px solid @blue-color;
+
+      &:hover {
+        border-left: 5px solid @gray-color;
+      }
+    }
+
+    &-header {
+      display: grid;
+      grid-template-columns: 1fr 21px;
+    }
+
+    &-list {
+      list-style-type: none;
+      margin: 0 0 10px;
+      padding: 0;
+    }
+
+    &-description {
+      margin: 0;
+      margin-bottom: 10px;
+      grid-column: 1;
+    }
+
+    &-rating {
+      display: flex;
+      margin: 0;
+      font-size: 14px;
+
+      @media screen and (max-width: 450px) {
+        flex-direction: column;
+        gap: 5px;
+        margin-left: 0;
+      }
+    }
+
+    .borderColors(@color, @hoverColor) {
+        border-left: 5px solid @color;
+        &:hover {
+          border-left: 5px solid @hoverColor;
+        }
+      }
+
+      &--purple {
+        .borderColors(@purple-color, @purple-dark-color);
+      }
+
+      &--orange {
+        .borderColors(@orange-color, @orange-lite-color);
+      }
+
+      &--gray {
+        .borderColors(@gray-color, @gray-darker-color);
+      }
+
+    &-refining {
+      color:  rgb(213, 224, 228);
+      font-size: 14px;
+    }
+
+    &-stars {
+      margin-right: 10px;
+      margin-left: 23px;
+      color: @orange-color;
+      position: relative;
+
+      &--low {
+        color: @gray-color;
+      }
+    
+      &::before {
+        background: url("../../images/icons/star-gray.svg") no-repeat center/contain;
+        content: "";
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        left: -25px;
+        top: -2px;
+      }
+    
+      &--high::before {
+        background: url("../../images/icons/star-orange.svg") no-repeat center/contain;
+      }
+    }
+    
+
+    &-make {
+      margin-bottom: 15px;
+    }
+
+    &-link {
+      margin-left: auto;
+      text-decoration: none;
+
+      &--gray {
+        color: @gray-color;
+        &:hover {
+          color: @gray-darker-color;
+        }
+      }
+
+      &--purple {
+        color: @purple-color;
+        &:hover {
+          color: @purple-dark-color;
+        }
+      }
+
+      &--orange {
+        color: @white-color;
+        background-color: @orange-color;
+        padding: 5px 5px 5px 20px;
+        border-radius: 5px;
+        position: relative;
+
+        &:hover {
+          background-color: @orange-lite-color;
+        }
+
+        &::before {
+          content: url("../../images/icons/bell.svg");
+          width: 30px;
+          height: 30px;
+          position: absolute;
+          left: 4px;
+          top: 5px;
+        }
+      }
+    }
+
+    &-loaging {
+      display: inline-block;
+      border: 1px solid @blue-color;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    &-point {
+      position: relative;
+      top: 2px;
+      margin-right: 3px;
+    }
+  }
+}
+
+
